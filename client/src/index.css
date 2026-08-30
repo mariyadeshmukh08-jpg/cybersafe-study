@@ -35,11 +35,137 @@ html.light {
   --surface-strong: #ffffff;
   --surface-muted: #e6f0f6;
   --line: rgba(31, 67, 95, 0.16);
-  --line-strong: rgba(8, 145, 178, 0.38);
+  --line-strong: rgba(8, 145, 178, 0.48);
   --ink: #071322;
   --ink-soft: #3d5268;
-  --ink-muted: #657990;
+  --ink-muted: #526a80;
+  --cyan: #0785a3;
+  --cyan-bright: #07809d;
+  --cyan-deep: #056b82;
+  --green: #197a49;
+  --red: #b4233a;
+  --amber: #8a5d05;
+  --accent-outline: #061321;
 }
+
+/* Light-mode contrast guardrail: cyan emphasis uses a darker accessible tone plus a subtle near-black keyline so it remains legible on pale surfaces. Dark signal surfaces locally restore light text tokens instead of inheriting light-mode ink. */
+html.light .hero-copy h1 span,
+html.light .hero-copy h1 em,
+html.light h2 span,
+html.light .quiz-hero-copy h1 span,
+html.light .utility-copy h1 span {
+  color: var(--cyan-bright);
+  -webkit-text-stroke: 0.8px var(--accent-outline);
+  paint-order: stroke fill;
+  text-shadow: 0 1px 0 rgba(255,255,255,.28);
+}
+html.light .eyebrow,
+html.light .text-link,
+html.light .watch-row,
+html.light .update-date,
+html.light .brand-copy span:last-child,
+html.light .hero-note a,
+html.light .emergency-copy a,
+html.light .footer-notice a,
+html.light .report-reminder a,
+html.light .chart-foot span:last-child,
+html.light .topic-index-item.active > span:first-child,
+html.light .topic-index-item.answered > span:first-child,
+html.light .progress-top strong,
+html.light .result-badge,
+html.light .quiz-card-mark {
+  color: var(--cyan-bright);
+  text-shadow: 0 0 .55px var(--accent-outline);
+}
+html.light .site-header,
+html.light .site-footer,
+html.light .search-control,
+html.light .icon-button,
+html.light .menu-button,
+html.light .button-outline,
+html.light .guide-fab {
+  color: var(--ink);
+}
+html.light .search-control { background: rgba(255,255,255,.78); }
+html.light .icon-button,
+html.light .menu-button,
+html.light .button-outline { background: rgba(255,255,255,.62); }
+html.light .button-outline { border-color: rgba(31,67,95,.38); }
+html.light .guide-fab { border-color: rgba(31,67,95,.38); background: rgba(247,251,255,.95); box-shadow: 0 12px 28px rgba(31,67,95,.16); }
+html.light .guide-fab:hover { border-color: var(--cyan); }
+html.light .guide-fab svg { color: var(--cyan-bright); }
+
+html.light .topic-card,
+html.light .resource-card:not(.resource-card-large),
+html.light .toolkit-card,
+html.light .quiz-card,
+html.light .quiz-progress-card,
+html.light .result-score-card,
+html.light .result-stat-card {
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(231,241,247,.96));
+  box-shadow: 0 16px 38px rgba(31,67,95,.08);
+}
+html.light .topic-card:hover,
+html.light .toolkit-card:hover { background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(221,238,245,.98)); }
+html.light .signal-stat,
+html.light .signal-chart,
+html.light .emergency-card,
+html.light .quiz-promo-card,
+html.light .resource-card-large,
+html.light .utility-card,
+html.light .assistant-panel {
+  --ink: #f5f9ff;
+  --ink-soft: #c4d0df;
+  --ink-muted: #9aabc0;
+  --cyan: #22d3ee;
+  --cyan-bright: #67e8f9;
+  --cyan-deep: #0891b2;
+}
+html.light .signal-chart,
+html.light .emergency-card,
+html.light .quiz-promo-card,
+html.light .resource-card-large,
+html.light .utility-card,
+html.light .assistant-panel {
+  color: var(--ink);
+}
+html.light .signal-stat { background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(231,241,247,.96)); --ink: #071322; --ink-soft: #3d5268; --ink-muted: #526a80; }
+html.light .quiz-hero-aside { color: var(--ink); background: linear-gradient(90deg, rgba(247,251,255,.14), rgba(219,235,243,.86)); }
+html.light .quiz-hero-glow { background: linear-gradient(90deg, rgba(247,251,255,.94), rgba(247,251,255,.62)), url("/manus-storage/cybersafe-quiz-constellation_6e321106.png") center right/auto 120% no-repeat; opacity: .52; }
+html.light .signal-chart .eyebrow,
+html.light .signal-chart .chart-foot span:last-child,
+html.light .floating-callout .eyebrow,
+html.light .emergency-card .eyebrow,
+html.light .quiz-promo-card .eyebrow,
+html.light .resource-card-large .eyebrow,
+html.light .utility-card .eyebrow,
+html.light .assistant-panel .eyebrow { color: var(--cyan-bright); text-shadow: 0 0 .55px #03111b; }
+html.light .floating-callout { color: #f5f9ff; background: rgba(9,22,41,.96); }
+html.light .floating-callout strong { color: #f5f9ff; }
+html.light .signal-chart .text-link,
+html.light .emergency-card .text-link,
+html.light .quiz-promo-card .text-link,
+html.light .resource-card-large .text-link,
+html.light .utility-card .text-link,
+html.light .assistant-panel .text-link { color: var(--cyan-bright); text-shadow: 0 0 .55px #03111b; }
+html.light .assistant-panel .assistant-prompts button { color: var(--cyan-bright); }
+html.light .assistant-panel .assistant-disclaimer a { color: var(--cyan-bright); }
+html.light .answer-option { color: var(--ink-soft); background: rgba(255,255,255,.72); }
+html.light .answer-option:hover:not(:disabled),
+html.light .answer-option.is-selected { color: var(--ink); background: rgba(34,211,238,.14); }
+html.light .assistant-panel { border-color: rgba(8,128,157,.46); }
+html.light .assistant-panel-head strong,
+html.light .assistant-panel-head small,
+html.light .assistant-message p,
+html.light .assistant-compose input,
+html.light .assistant-disclaimer { color: var(--ink); }
+html.light .assistant-compose,
+html.light .assistant-message p,
+html.light .assistant-close,
+html.light .assistant-compose input { background: rgba(3,10,23,.32); }
+html.light .assistant-message p { color: #dbe8f2; }
+html.light .assistant-message.user p { color: #eafaff; }
+html.light .assistant-compose input::placeholder { color: #9aabc0; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--bg); }

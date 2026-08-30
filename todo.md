@@ -12,3 +12,10 @@
 - [x] Refine the assistant with an incident-response quick prompt and clearer official-channel reminders.
 - [x] Verify responsive presentation, assistant behavior, title, quiz, navigation, and production build.
 - [ ] Save and deliver the improvement update.
+
+## Light-mode contrast fix
+
+- [x] Audit light-mode text, accent headings, cards, controls, and assistant surfaces for insufficient contrast.
+- [x] Add dark keylines/outline treatments to cyan and blue emphasis text and strengthen theme-aware foreground/background pairs.
+- [x] Verify light and dark modes on homepage, Safety Toolkit, quiz, and AI assistant.
+- [x] Run checks, save, and deliver the contrast-fix update.
