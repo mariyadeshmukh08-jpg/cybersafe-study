@@ -347,11 +347,19 @@ html.light .site-footer { background: #dceaf2; }
 .footer-column a { color: var(--ink-soft); font-size: 12px; transition: color 180ms var(--ease-out); }
 .footer-column a:hover { color: var(--cyan-bright); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 10px; }
-.guide-fab { position: fixed; right: 22px; bottom: 18px; z-index: 20; display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; color: var(--ink); border: 1px solid var(--line-strong); background: rgba(8, 22, 39, .9); box-shadow: 0 12px 28px rgba(0,0,0,.26); font-size: 11px; cursor: pointer; backdrop-filter: blur(16px); transition: border-color 180ms var(--ease-out), transform 160ms var(--ease-out); }
-.guide-fab:hover { border-color: var(--cyan); transform: translateY(-2px); }
-.guide-fab svg { color: var(--cyan-bright); }
+.guide-fab { position: fixed; right: 22px; bottom: 18px; z-index: 20; display: inline-flex; align-items: center; gap: 10px; min-width: 156px; padding: 8px 12px 8px 8px; color: var(--ink); border: 1px solid var(--line-strong); border-radius: 16px; background: rgba(8, 22, 39, .9); box-shadow: 0 12px 28px rgba(0,0,0,.26); font-size: 11px; cursor: pointer; backdrop-filter: blur(16px); transition: border-color 180ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 180ms var(--ease-out); }
+.guide-fab:hover { border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 15px 34px rgba(0,0,0,.32), 0 0 22px rgba(34,211,238,.1); }
+.guide-fab:active { transform: translateY(0) scale(.98); }
+.guide-fab-avatar { position: relative; width: 29px; height: 29px; flex: 0 0 auto; display: grid; place-items: center; color: var(--cyan-bright); border: 1px solid rgba(103,232,249,.55); border-radius: 10px; background: linear-gradient(145deg, rgba(34,211,238,.22), rgba(34,211,238,.06)); box-shadow: inset 0 1px rgba(255,255,255,.1), 0 0 16px rgba(34,211,238,.1); }
+.guide-fab-avatar svg { color: inherit; }
+.guide-fab-spark { position: absolute; top: -5px; right: -5px; width: 13px; height: 13px; padding: 2px; color: var(--cyan-bright); border: 1px solid var(--line-strong); border-radius: 50%; background: var(--bg-elevated); }
+.guide-fab-copy { display: grid; gap: 2px; min-width: 0; text-align: left; line-height: 1.05; }
+.guide-fab-copy strong { font-family: var(--font-display); font-size: 12px; letter-spacing: -.01em; white-space: nowrap; }
+.guide-fab-copy small { color: var(--ink-muted); font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.guide-fab-status { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.1), 0 0 11px rgba(74,222,128,.65); }
+.guide-fab.is-open { border-color: var(--cyan); color: var(--cyan-bright); }
 
-/* AI assistant: keep the original floating Need guidance entry point, but restore it as a real in-site guidance surface rather than an alert. */
+/* AI assistant: keep the compact floating CyberBuddy entry point native to the CyberSafe shell while preserving the real in-site guidance surface. */
 .assistant-panel { position: fixed; right: 22px; bottom: 72px; z-index: 26; width: min(380px, calc(100vw - 28px)); max-height: min(650px, calc(100vh - 100px)); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden; border: 1px solid rgba(34,211,238,.36); background: linear-gradient(145deg, rgba(12, 32, 51, .98), rgba(4, 12, 25, .98)); box-shadow: 0 24px 70px rgba(0,0,0,.45), 0 0 35px rgba(34,211,238,.08); animation: assistant-enter 220ms var(--ease-out) both; }
 .assistant-panel-head { display: flex; justify-content: space-between; gap: 14px; padding: 18px 17px 16px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(34,211,238,.09), transparent); }
 .assistant-panel-head > div { display: grid; gap: 6px; }

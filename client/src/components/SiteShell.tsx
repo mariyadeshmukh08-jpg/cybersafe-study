@@ -1,7 +1,7 @@
 // Design ground truth: preserve the provided CyberSafe dark civic-tech shell with compact labels, signal-cyan actions, glass cards, and asymmetric editorial spacing.
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { ArrowUpRight, Menu, Moon, Search, Send, ShieldCheck, Sun, X } from "lucide-react";
+import { ArrowUpRight, Bot, Menu, Moon, Search, Send, ShieldCheck, Sparkles, Sun, X } from "lucide-react";
 
 const PRODUCT_TITLE = "Cybercrime Awareness and Reporting System Study";
 
@@ -223,8 +223,23 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </aside>
       )}
-      <button className={`guide-fab ${assistantOpen ? "is-open" : ""}`} type="button" aria-expanded={assistantOpen} aria-controls="cybersafe-assistant" onClick={() => setAssistantOpen((value) => !value)}>
-        {assistantOpen ? <X size={16} /> : <ShieldCheck size={16} />} {assistantOpen ? "Close assistant" : "Need guidance?"}
+      <button
+        className={`guide-fab ${assistantOpen ? "is-open" : ""}`}
+        type="button"
+        aria-label={assistantOpen ? "Close CyberBuddy assistant" : "Open CyberBuddy assistant"}
+        aria-expanded={assistantOpen}
+        aria-controls="cybersafe-assistant"
+        onClick={() => setAssistantOpen((value) => !value)}
+      >
+        <span className="guide-fab-avatar" aria-hidden="true">
+          {assistantOpen ? <X size={16} /> : <Bot size={17} />}
+          {!assistantOpen && <Sparkles className="guide-fab-spark" size={10} />}
+        </span>
+        <span className="guide-fab-copy">
+          <strong>{assistantOpen ? "Close CyberBuddy" : "CyberBuddy"}</strong>
+          {!assistantOpen && <small>AI safety buddy</small>}
+        </span>
+        <span className="guide-fab-status" aria-hidden="true" />
       </button>
       <Footer />
     </div>

@@ -19,3 +19,10 @@
 - [x] Add dark keylines/outline treatments to cyan and blue emphasis text and strengthen theme-aware foreground/background pairs.
 - [x] Verify light and dark modes on homepage, Safety Toolkit, quiz, and AI assistant.
 - [x] Run checks, save, and deliver the contrast-fix update.
+
+## CyberBuddy assistant trigger
+
+- [x] Inspect the current floating assistant trigger markup and theme tokens.
+- [x] Replace the plain label with a friendly CyberBuddy icon/bar while preserving assistant controls and accessibility.
+- [x] Verify the trigger in light and dark modes on homepage and quiz.
+- [x] Run checks, save, and deliver the CyberBuddy update.

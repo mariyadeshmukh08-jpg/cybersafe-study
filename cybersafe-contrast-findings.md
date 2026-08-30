@@ -13,3 +13,11 @@ The quiz remained readable in dark mode and light mode. In light mode, the large
 ## Assistant contrast check
 
 On the light-mode quiz, the assistant opens as a dark navy panel with light text, bright cyan prompts, readable input text, and a defined cyan border. Computed styles confirmed the assistant panel and message/input surfaces use intentional dark-surface tokens rather than inheriting pale-theme text colors. The assistant remains usable while the quiz stays visible behind it.
+
+## CyberBuddy trigger verification
+
+The live homepage now exposes an accessible trigger labeled `Open CyberBuddy assistant` with visible `CyberBuddy` and `AI SAFETY BUDDY` text instead of `Need guidance?`. It remains anchored in the same lower-right location and sits cleanly against both the dark hero and pale light-mode homepage. The light-mode hero retains the dark cyan keyline treatment from the previous contrast fix.
+
+## CyberBuddy visual check
+
+The dark-mode homepage shows the new compact CyberBuddy bar with a rounded bot mark, small sparkle detail, `CyberBuddy` label, `AI SAFETY BUDDY` sublabel, and green active-status cue. In light mode, the same bar remains readable in the lower-right corner. Opening it changes the accessible label to `Close CyberBuddy assistant`, preserves the existing assistant panel, and keeps the underlying homepage controls visible.
