@@ -21,3 +21,7 @@ The live homepage now exposes an accessible trigger labeled `Open CyberBuddy ass
 ## CyberBuddy visual check
 
 The dark-mode homepage shows the new compact CyberBuddy bar with a rounded bot mark, small sparkle detail, `CyberBuddy` label, `AI SAFETY BUDDY` sublabel, and green active-status cue. In light mode, the same bar remains readable in the lower-right corner. Opening it changes the accessible label to `Close CyberBuddy assistant`, preserves the existing assistant panel, and keeps the underlying homepage controls visible.
+
+## CyberBuddy animation check
+
+The live preview confirms the trigger remains stable while only the avatar and sparkle animate. The avatar uses the `cyberbuddy-float` animation at 3.8 seconds with infinite iteration, and the sparkle uses `cyberbuddy-sparkle` at 2.4 seconds. The bar itself has no transform, and the trigger remains labeled `Open CyberBuddy assistant`.

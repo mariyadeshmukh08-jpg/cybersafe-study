@@ -26,3 +26,9 @@
 - [x] Replace the plain label with a friendly CyberBuddy icon/bar while preserving assistant controls and accessibility.
 - [x] Verify the trigger in light and dark modes on homepage and quiz.
 - [x] Run checks, save, and deliver the CyberBuddy update.
+
+## CyberBuddy idle animation
+
+- [x] Add a restrained floating/bouncing animation to the CyberBuddy icon and sparkle only.
+- [x] Respect prefers-reduced-motion and keep the assistant bar stable.
+- [x] Verify animation and click behavior in light and dark modes, then run checks and deliver.

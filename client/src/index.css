@@ -358,6 +358,22 @@ html.light .site-footer { background: #dceaf2; }
 .guide-fab-copy small { color: var(--ink-muted); font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
 .guide-fab-status { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.1), 0 0 11px rgba(74,222,128,.65); }
 .guide-fab.is-open { border-color: var(--cyan); color: var(--cyan-bright); }
+.guide-fab-avatar { animation: cyberbuddy-float 3.8s var(--ease-in-out) infinite; transform-origin: 50% 70%; }
+.guide-fab-spark { animation: cyberbuddy-sparkle 2.4s var(--ease-out) infinite; }
+.guide-fab:hover .guide-fab-avatar { animation-play-state: paused; transform: translateY(-1px) rotate(-2deg); }
+.guide-fab.is-open .guide-fab-avatar { animation-play-state: paused; }
+
+@keyframes cyberbuddy-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(-1deg); }
+}
+@keyframes cyberbuddy-sparkle {
+  0%, 100% { opacity: .68; transform: scale(.9) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.06) rotate(18deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide-fab-avatar, .guide-fab-spark { animation: none; }
+}
 
 /* AI assistant: keep the compact floating CyberBuddy entry point native to the CyberSafe shell while preserving the real in-site guidance surface. */
 .assistant-panel { position: fixed; right: 22px; bottom: 72px; z-index: 26; width: min(380px, calc(100vw - 28px)); max-height: min(650px, calc(100vh - 100px)); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden; border: 1px solid rgba(34,211,238,.36); background: linear-gradient(145deg, rgba(12, 32, 51, .98), rgba(4, 12, 25, .98)); box-shadow: 0 24px 70px rgba(0,0,0,.45), 0 0 35px rgba(34,211,238,.08); animation: assistant-enter 220ms var(--ease-out) both; }
