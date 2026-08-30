@@ -32,3 +32,15 @@
 - [x] Add a restrained floating/bouncing animation to the CyberBuddy icon and sparkle only.
 - [x] Respect prefers-reduced-motion and keep the assistant bar stable.
 - [x] Verify animation and click behavior in light and dark modes, then run checks and deliver.
+
+## Responsive AI assistant panel
+
+- [ ] Audit assistant panel width, viewport anchoring, quick-prompt wrapping, and message overflow on mobile and desktop.
+- [ ] Make the assistant panel viewport-safe and full-width on phones, with readable wrapping and internal scrolling.
+- [ ] Verify complete text visibility, assistant open/close behavior, and desktop/mobile layout; then run checks and deliver.
+
+## Full-screen CyberBuddy modal
+
+- [x] Audit the current assistant open-state markup, grid sizing, message overflow, and mobile responsive rules.
+- [x] Add a modal backdrop, viewport-safe centered panel, wrapped prompt stack, readable composer, and separate open-state bubble.
+- [x] Verify full text visibility, scrolling, X/Escape/backdrop close behavior, and desktop/mobile layout; then run checks and deliver.

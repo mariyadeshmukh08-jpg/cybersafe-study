@@ -188,12 +188,19 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const [assistantMessages, setAssistantMessages] = useState<AssistantMessage[]>([initialAssistantMessage]);
 
   useEffect(() => {
-    if (!assistantOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setAssistantOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    const previousOverflow = document.body.style.overflow;
+    if (assistantOpen) {
+      document.body.style.overflow = "hidden";
+      const closeOnEscape = (event: KeyboardEvent) => {
+        if (event.key === "Escape") setAssistantOpen(false);
+      };
+      window.addEventListener("keydown", closeOnEscape);
+      return () => {
+        document.body.style.overflow = previousOverflow;
+        window.removeEventListener("keydown", closeOnEscape);
+      };
+    }
+    return undefined;
   }, [assistantOpen]);
 
   const sendAssistantMessage = (value: string) => {
@@ -207,8 +214,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     <div className="site-frame">
       <Header />
       <main>{children}</main>
+      {assistantOpen && <button className="assistant-backdrop" type="button" aria-label="Close CyberBuddy assistant" onClick={() => setAssistantOpen(false)} />}
       {assistantOpen && (
-        <aside id="cybersafe-assistant" className="assistant-panel" role="dialog" aria-modal="false" aria-label="CyberSafe guidance assistant">
+        <aside id="cybersafe-assistant" className="assistant-panel" role="dialog" aria-modal="true" aria-label="CyberSafe guidance assistant">
           <div className="assistant-panel-head">
             <div><span className="eyebrow"><span className="status-dot" /> AI guidance desk</span><strong>Ask before you act.</strong><small>Practical cyber-safety guidance, one step at a time.</small></div>
             <button className="assistant-close" type="button" aria-label="Close AI assistant" onClick={() => setAssistantOpen(false)}><X size={17} /></button>
@@ -218,7 +226,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           </div>
           <div className="assistant-compose">
             <div className="assistant-prompts">{assistantPrompts.map((prompt) => <button key={prompt} type="button" onClick={() => sendAssistantMessage(prompt)}>{prompt}</button>)}</div>
-            <form onSubmit={(event) => { event.preventDefault(); sendAssistantMessage(assistantInput); }}><input aria-label="Ask the CyberSafe assistant" placeholder="Ask about a cyber-safety concern" value={assistantInput} onChange={(event) => setAssistantInput(event.target.value)} /><button type="submit" aria-label="Send question"><Send size={15} /></button></form>
+            <form onSubmit={(event) => { event.preventDefault(); sendAssistantMessage(assistantInput); }}><textarea aria-label="Ask the CyberSafe assistant" placeholder="Ask about a scam or safe reporting…" value={assistantInput} rows={2} onChange={(event) => setAssistantInput(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendAssistantMessage(assistantInput); } }} /><button type="submit" aria-label="Send question"><Send size={15} /></button></form>
             <small className="assistant-disclaimer">Educational guidance only. For active financial fraud, call <a href="tel:1930">1930</a>.</small>
           </div>
         </aside>

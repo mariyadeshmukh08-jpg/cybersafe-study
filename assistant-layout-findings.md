@@ -1,0 +1,11 @@
+# Responsive assistant layout findings
+
+The user-provided reference shows a centered near-full-screen assistant surface with all quick prompts wrapped, a readable multiline composer, and the underlying page dimmed rather than competing with the chat. The updated implementation adds a modal backdrop, locks background page scrolling while open, uses a centered desktop panel up to 1120px wide, keeps the message region internally scrollable, stacks quick prompts on phones, and uses a two-row prompt grid on desktop. The live desktop check confirmed a 1120x820 panel in a 1280x1100 viewport, 752px composer width, 820px prompt grid, `overflow-y: auto` for messages, and `Close CyberBuddy assistant` as the active accessible trigger label.
+
+## Modal interaction verification
+
+The live desktop preview confirms the assistant modal is centered at 1120×820 within a 1280×1100 viewport, with the conversation region scrolling internally and no horizontal overflow in either the messages or prompt grid. Opening locks background page scrolling. Closing through the header X and reopening/closing through the backdrop both work, and the page body overflow is restored after close.
+
+## Mobile-oriented assistant check
+
+The live assistant now opens with `aria-modal="true"`, keeps all four quick prompts as separate controls, and uses a `TEXTAREA` composer with the full placeholder `Ask about a scam or safe reporting…`. The open state is labeled `Close CyberBuddy assistant`, so the assistant can be closed through the trigger as well as the header control and backdrop.
