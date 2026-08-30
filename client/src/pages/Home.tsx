@@ -1,5 +1,5 @@
 // Design ground truth: preserve the reference homepage's dark navy civic-tech editorial layout, cyan signal accents, data-card language, and action-first reporting guidance.
-import { ArrowDownRight, ArrowRight, CheckCircle2, ExternalLink, LockKeyhole, ShieldAlert, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { ArrowDownRight, ArrowRight, CheckCircle2, ExternalLink, FileCheck2, LockKeyhole, ShieldAlert, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Link } from "wouter";
 
 const awarenessTopics = [
@@ -115,6 +115,17 @@ export default function Home() {
               <div><span className="eyebrow">Time</span><strong>~ 4 min</strong><small>at your own pace</small></div>
               <div><span className="eyebrow">Outcome</span><strong>Personalised</strong><small>safety recommendation</small></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="toolkit-section section" id="safety-toolkit">
+        <div className="container">
+          <div className="section-intro toolkit-heading"><div><span className="eyebrow">Safety toolkit</span><h2>When the signal<br /><span>turns urgent.</span></h2></div><p>Keep these three moves close. They are designed for the minutes when a message, payment request, or device warning creates pressure.</p></div>
+          <div className="toolkit-grid">
+            <article className="toolkit-card"><span className="toolkit-card-number">01</span><LockKeyhole size={19} /><h3>Before you pay</h3><p>Stop and verify the request through a trusted app or known contact. Never disclose an OTP or enter a UPI PIN to receive money.</p><a className="text-link" href="#awareness">Review scam signals <ArrowRight size={15} /></a></article>
+            <article className="toolkit-card"><span className="toolkit-card-number">02</span><ShieldAlert size={19} /><h3>After you click</h3><p>Disconnect a suspicious device from the network, close the page, avoid unknown cleanup tools, and change important passwords from a clean device.</p><Link className="text-link" href="/quiz">Test your reflex <ArrowRight size={15} /></Link></article>
+            <article className="toolkit-card toolkit-card-accent"><span className="toolkit-card-number">03</span><FileCheck2 size={19} /><h3>Preserve &amp; report</h3><p>Keep screenshots, messages, URLs, dates, transaction IDs, and alerts. For suspected financial fraud, call 1930 and use the official portal.</p><Link className="text-link" href="/report">Start a report <ArrowRight size={15} /></Link></article>
           </div>
         </div>
       </section>

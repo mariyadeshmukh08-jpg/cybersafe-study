@@ -14,7 +14,7 @@ const navItems = [
   { label: "Quiz", href: "/quiz" },
 ];
 
-const assistantPrompts = ["Is this payment request safe?", "I received an OTP call", "How do I report?", "My device may have malware"];
+const assistantPrompts = ["I think I’ve been scammed", "Is this payment request safe?", "I received an OTP call", "My device may have malware"];
 
 type AssistantMessage = { role: "assistant" | "user"; text: string };
 
@@ -25,6 +25,9 @@ function assistantReply(input: string) {
   }
   if (prompt.includes("payment") || prompt.includes("upi") || prompt.includes("refund") || prompt.includes("money")) {
     return "Pause before you approve anything. A UPI PIN authorises money leaving your account; it is never needed to receive a refund. If a transfer was unauthorised, alert your bank and call 1930 immediately.";
+  }
+  if (prompt.includes("scam") || prompt.includes("hacked") || prompt.includes("lost money") || prompt.includes("been cheated")) {
+    return "Pause and do not delete the trail. Contact your bank or payment service through its verified channel, preserve screenshots, messages, transaction IDs, URLs, dates, and alerts, then call 1930 immediately for suspected financial fraud and use the official cybercrime portal.";
   }
   if (prompt.includes("report") || prompt.includes("complaint") || prompt.includes("1930")) {
     return "Preserve screenshots, messages, transaction IDs, URLs, dates, and account alerts. For suspected financial fraud, call 1930 immediately and complete the report through the official cybercrime portal.";
