@@ -44,3 +44,9 @@
 - [x] Audit the current assistant open-state markup, grid sizing, message overflow, and mobile responsive rules.
 - [x] Add a modal backdrop, viewport-safe centered panel, wrapped prompt stack, readable composer, and separate open-state bubble.
 - [x] Verify full text visibility, scrolling, X/Escape/backdrop close behavior, and desktop/mobile layout; then run checks and deliver.
+
+## Mobile CyberBuddy visibility repair
+
+- [x] Inspect the real mobile viewport behavior, dynamic viewport units, safe-area insets, and assistant panel clipping.
+- [x] Make the mobile panel fit the usable viewport and contain scrolling so header, prompts, composer, and close controls remain reachable.
+- [x] Verify on phone-sized and desktop-sized layouts, then run checks and deliver the visibility fix.

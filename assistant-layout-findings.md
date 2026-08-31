@@ -9,3 +9,7 @@ The live desktop preview confirms the assistant modal is centered at 1120×820 w
 ## Mobile-oriented assistant check
 
 The live assistant now opens with `aria-modal="true"`, keeps all four quick prompts as separate controls, and uses a `TEXTAREA` composer with the full placeholder `Ask about a scam or safe reporting…`. The open state is labeled `Close CyberBuddy assistant`, so the assistant can be closed through the trigger as well as the header control and backdrop.
+
+## Follow-up mobile visibility diagnosis
+
+The user’s screen recording is from the older `cybersafe-gbphmow9.manus.space` deployment, while the editable project is served from `cybersafe-a8vxik4x.manus.space`; the older deployment may still show the prior clipped panel. The current implementation now uses small/dynamic viewport units with a `100vh` fallback, safe-area insets, `min-height: 0` grid containment, an internally scrollable message region, and a capped scrollable composer so the modal remains inside the usable phone viewport even when browser chrome reduces visible height.
