@@ -50,3 +50,9 @@
 - [x] Inspect the real mobile viewport behavior, dynamic viewport units, safe-area insets, and assistant panel clipping.
 - [x] Make the mobile panel fit the usable viewport and contain scrolling so header, prompts, composer, and close controls remain reachable.
 - [x] Verify on phone-sized and desktop-sized layouts, then run checks and deliver the visibility fix.
+
+## Phone-safe CyberBuddy fallback
+
+- [x] Audit the current mobile media query and determine whether the user’s phone viewport can miss the width breakpoint.
+- [x] Add a phone-aware body/class fallback and a compact edge-to-edge mobile sheet with reachable controls.
+- [x] Verify the assistant on phone-sized and desktop-sized viewports, then run checks and deliver.

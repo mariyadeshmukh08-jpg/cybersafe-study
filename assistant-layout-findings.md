@@ -13,3 +13,7 @@ The live assistant now opens with `aria-modal="true"`, keeps all four quick prom
 ## Follow-up mobile visibility diagnosis
 
 The user’s screen recording is from the older `cybersafe-gbphmow9.manus.space` deployment, while the editable project is served from `cybersafe-a8vxik4x.manus.space`; the older deployment may still show the prior clipped panel. The current implementation now uses small/dynamic viewport units with a `100vh` fallback, safe-area insets, `min-height: 0` grid containment, an internally scrollable message region, and a capped scrollable composer so the modal remains inside the usable phone viewport even when browser chrome reduces visible height.
+
+## Phone fallback transform verification
+
+The phone-layout simulation initially exposed a key issue: the desktop `assistant-modal-enter` animation retained `translate(-50%, -50%)`, shifting the mobile sheet off-screen even after its mobile positioning rules ran. The mobile fallback now uses `assistant-mobile-enter`, which resolves to a non-translating transform. The live check confirms the phone-layout panel is fixed at all viewport edges (8px inset in the simulated viewport), has no offset transform, keeps the composer inside the viewport, and preserves internal message scrolling.

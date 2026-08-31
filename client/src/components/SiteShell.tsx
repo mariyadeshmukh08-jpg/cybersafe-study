@@ -182,10 +182,27 @@ function Footer() {
   );
 }
 
+function detectPhoneLayout() {
+  if (typeof window === "undefined") return false;
+  const mobileAgent = /Android|iPhone|iPad|iPod|Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return mobileAgent || window.matchMedia("(max-width: 700px)").matches;
+}
+
 export default function SiteShell({ children }: { children: ReactNode }) {
+  const [phoneLayout, setPhoneLayout] = useState(detectPhoneLayout);
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantInput, setAssistantInput] = useState("");
   const [assistantMessages, setAssistantMessages] = useState<AssistantMessage[]>([initialAssistantMessage]);
+
+  useEffect(() => {
+    const syncPhoneLayout = () => setPhoneLayout(detectPhoneLayout());
+    window.addEventListener("resize", syncPhoneLayout);
+    window.visualViewport?.addEventListener("resize", syncPhoneLayout);
+    return () => {
+      window.removeEventListener("resize", syncPhoneLayout);
+      window.visualViewport?.removeEventListener("resize", syncPhoneLayout);
+    };
+  }, []);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -211,7 +228,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="site-frame">
+    <div className={`site-frame ${phoneLayout ? "phone-layout" : ""}`}>
       <Header />
       <main>{children}</main>
       {assistantOpen && <button className="assistant-backdrop" type="button" aria-label="Close CyberBuddy assistant" onClick={() => setAssistantOpen(false)} />}
