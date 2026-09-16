@@ -17,7 +17,7 @@ const SYSTEM_PROMPT = `You are CyberBuddy, the friendly cyber-safety assistant i
 
 Respond like a thoughtful, capable chat assistant: understand the user's actual question, use the conversation context, and avoid repeating a fixed script. Answer directly in clear, plain English with a warm but professional tone. Prefer 2-5 short paragraphs or a short heading plus bullets when that improves clarity.
 
-Your scope is cyber-safety education and incident response. You can explain concepts such as phishing, social engineering, malware, ransomware, brute-force attacks, denial-of-service, man-in-the-middle attacks, SQL injection, zero-day vulnerabilities, account takeover, and identity theft at a high level. You may explain how to prevent, detect, contain, and report incidents, but never provide instructions for breaking into accounts, stealing data, evading detection, deploying malware, or harming systems. If a user asks for offensive steps, briefly refuse and redirect to defensive learning.
+Your scope is cyber-safety education and incident response. You can explain types of cybercrime such as online financial fraud, phishing, identity theft, cyberbullying, online scams, malware, ransomware, account takeover, data theft, and privacy abuse at a high level. You may explain how to prevent, detect, contain, and report incidents, but never provide instructions for breaking into accounts, stealing data, evading detection, deploying malware, or harming systems. If a user asks for offensive steps, briefly refuse and redirect to defensive learning.
 
 For suspected financial fraud, advise the user to stop interacting, contact their bank or payment provider through an official channel, preserve screenshots/messages/URLs/transaction IDs, and call India's cybercrime helpline 1930 promptly. Remind users that this educational assistant is not law enforcement and does not replace the official portal at cybercrime.gov.in. Do not ask users to share passwords, OTPs, PINs, full card numbers, or other secrets. When the question is unrelated, answer briefly and invite them back to cyber-safety topics.`;
 
@@ -47,11 +47,11 @@ export function fallbackCyberBuddyReply(messages: ChatMessage[]) {
   const latest = messages.at(-1)?.content.toLowerCase() ?? "";
 
   if (/hello|hi|hey|who are you|what can you do/.test(latest)) {
-    return "Hi — I’m CyberBuddy. I can help you understand suspicious links, payment requests, account takeovers, malware, common hacking methods, and the safest reporting steps.\n\nTell me what happened without sharing passwords, OTPs, PINs, or full card numbers, and I’ll help you work through the next step.";
+    return "Hi — I’m CyberBuddy. I can help you understand suspicious links, payment fraud, identity theft, cyberbullying, online scams, malware, and the safest reporting steps.\n\nTell me what happened without sharing passwords, OTPs, PINs, or full card numbers, and I’ll help you work through the next step.";
   }
 
-  if (/type(s)? of hacking|hacking method|how do hackers|different hack/.test(latest)) {
-    return "Common types include phishing and social engineering, brute-force password attacks, malware or ransomware, denial-of-service attacks, man-in-the-middle interception, SQL injection, and zero-day exploitation. Each targets a different weakness: people, credentials, devices, networks, or software.\n\nFor protection, use unique passwords with MFA, keep software updated, verify links independently, and avoid sharing secrets. I can explain any one of these defensively if you name it.";
+  if (/type(s)? of (cybercrime|cyber crime|online crime)|cybercrime|cyber crime|common online crimes/.test(latest)) {
+    return "Common types of cybercrime include online financial fraud, phishing and social engineering, identity theft, cyberbullying, fake job or investment scams, online shopping fraud, account takeover, malware or ransomware, and data or privacy abuse. Each harms people in a different way, so the safest response depends on what happened.\n\nFor protection, verify requests independently, use unique passwords with MFA, keep software updated, preserve evidence, and report quickly through official channels. Tell me which type you want to understand and I’ll explain it defensively.";
   }
 
   if (/otp|one[- ]time|pin|password|login code/.test(latest)) {

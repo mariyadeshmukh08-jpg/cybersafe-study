@@ -15,13 +15,13 @@ const awarenessTopics = [
   { number: "10", title: "Malware and Ransomware", body: "Malicious software steals data, disrupts devices, or demands payment to restore access.", watch: "Unexpected encryption, pop-ups, or software installs", icon: LockKeyhole },
 ];
 
-const hackingTypes = [
-  { title: "Phishing & social engineering", body: "Attackers manipulate people with convincing messages, fake support calls, or urgent requests for secrets." },
-  { title: "Brute-force attacks", body: "Automated guesses target weak or reused passwords until an account is compromised." },
+const cybercrimeTypes = [
+  { title: "Online financial fraud", body: "Scammers use fake payment requests, UPI tricks, refunds, and impersonation to steal money." },
+  { title: "Identity theft", body: "Personal details are misused to impersonate someone, open accounts, or take over services." },
+  { title: "Cyberbullying & harassment", body: "Threats, humiliation, abusive messages, and coordinated harassment cause harm online." },
+  { title: "Online cheating & scams", body: "Fake jobs, shopping sites, investments, romance profiles, and support calls are used to deceive people." },
   { title: "Malware & ransomware", body: "Malicious software can spy, damage files, lock devices, or demand payment." },
-  { title: "Man-in-the-middle", body: "An attacker intercepts communication between two parties, especially on unsafe networks or fake websites." },
-  { title: "Denial-of-service", body: "A service is flooded with traffic so real users cannot reach it. Do not respond to ransom demands without expert advice." },
-  { title: "SQL injection & software flaws", body: "Attackers exploit weaknesses in apps or databases. Updates, secure development, and access controls reduce the risk." },
+  { title: "Data theft & privacy abuse", body: "Unauthorised access, leaks, or misuse of private information can expose people and organisations." },
 ];
 
 function SignalChart() {
@@ -109,14 +109,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="hacking-types-section section" id="hacking-types">
+      <section className="cybercrime-types-section section" id="cybercrime-types">
         <div className="container">
           <div className="section-intro split-intro">
-            <div><span className="eyebrow">Know the methods</span><h2>Types of hacking.<br /><span>Defend the weak point.</span></h2></div>
-            <div className="intro-copy"><p>Hacking is not one single technique. Different attacks target people, passwords, devices, networks, or software. Understanding the pattern makes suspicious behaviour easier to spot.</p><a className="text-link" href="#safety-toolkit">See practical protection steps <ArrowRight size={15} /></a></div>
+            <div><span className="eyebrow">Know the risks</span><h2>Types of cybercrime.<br /><span>Recognise the pattern.</span></h2></div>
+            <div className="intro-copy"><p>Cybercrime can target your money, identity, safety, privacy, or access to an account. Knowing the common forms makes suspicious behaviour easier to recognise and report.</p><a className="text-link" href="#safety-toolkit">See practical protection steps <ArrowRight size={15} /></a></div>
           </div>
-          <div className="hacking-types-grid">
-            {hackingTypes.map((type, index) => <article className="hacking-type-card" key={type.title}><span className="hacking-type-index">0{index + 1}</span><h3>{type.title}</h3><p>{type.body}</p><span className="hacking-type-note">Defensive focus: prevention &amp; early detection</span></article>)}
+          <div className="cybercrime-types-grid">
+            {cybercrimeTypes.map((type, index) => <article className="cybercrime-type-card" key={type.title}><span className="cybercrime-type-index">0{index + 1}</span><h3>{type.title}</h3><p>{type.body}</p><span className="cybercrime-type-note">Defensive focus: prevention &amp; early reporting</span></article>)}
           </div>
         </div>
       </section>

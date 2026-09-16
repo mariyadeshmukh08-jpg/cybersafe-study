@@ -15,11 +15,11 @@ const navItems = [
   { label: "Quiz", href: "/quiz" },
 ];
 
-const assistantPrompts = ["I think I’ve been scammed", "Is this payment request safe?", "What types of hacking should I know about?", "My device may have malware"];
+const assistantPrompts = ["I think I’ve been scammed", "Is this payment request safe?", "What types of cybercrime should I know about?", "My device may have malware"];
 
 type AssistantMessage = { role: "assistant" | "user"; text: string };
 
-const initialAssistantMessage: AssistantMessage = { role: "assistant", text: "Hi — I’m CyberBuddy. Ask me about a suspicious link, payment request, account takeover, malware, common hacking methods, or how to report an incident. I’ll respond to the details you share and help you choose a safe next step." };
+const initialAssistantMessage: AssistantMessage = { role: "assistant", text: "Hi — I’m CyberBuddy. Ask me about a suspicious link, payment request, identity theft, cyberbullying, online scams, malware, or how to report an incident. I’ll respond to the details you share and help you choose a safe next step." };
 
 function BrandLockup() {
   return (
