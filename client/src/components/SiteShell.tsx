@@ -1,9 +1,10 @@
 // Design ground truth: preserve the provided CyberSafe dark civic-tech shell with compact labels, signal-cyan actions, glass cards, and asymmetric editorial spacing.
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { ArrowUpRight, Bot, Menu, Moon, Search, Send, ShieldCheck, Sparkles, Sun, X } from "lucide-react";
+import { ArrowUpRight, Bot, LoaderCircle, Menu, Moon, Search, Send, Sparkles, Sun, X } from "lucide-react";
+import { Streamdown } from "streamdown";
 
-const PRODUCT_TITLE = "Cybercrime Awareness and Reporting System Study";
+const PRODUCT_TITLE = "Cyber Crime Awareness and Reporting System";
 
 const navItems = [
   { label: "Awareness", href: "/#awareness" },
@@ -14,37 +15,11 @@ const navItems = [
   { label: "Quiz", href: "/quiz" },
 ];
 
-const assistantPrompts = ["I think I’ve been scammed", "Is this payment request safe?", "I received an OTP call", "My device may have malware"];
+const assistantPrompts = ["I think I’ve been scammed", "Is this payment request safe?", "What types of hacking should I know about?", "My device may have malware"];
 
 type AssistantMessage = { role: "assistant" | "user"; text: string };
 
-function assistantReply(input: string) {
-  const prompt = input.toLowerCase();
-  if (prompt.includes("otp") || prompt.includes("one-time") || prompt.includes("code")) {
-    return "Never share an OTP with a caller or message sender. End the conversation and contact the organisation through its verified app or website. If money has moved, call 1930 immediately.";
-  }
-  if (prompt.includes("payment") || prompt.includes("upi") || prompt.includes("refund") || prompt.includes("money")) {
-    return "Pause before you approve anything. A UPI PIN authorises money leaving your account; it is never needed to receive a refund. If a transfer was unauthorised, alert your bank and call 1930 immediately.";
-  }
-  if (prompt.includes("scam") || prompt.includes("hacked") || prompt.includes("lost money") || prompt.includes("been cheated")) {
-    return "Pause and do not delete the trail. Contact your bank or payment service through its verified channel, preserve screenshots, messages, transaction IDs, URLs, dates, and alerts, then call 1930 immediately for suspected financial fraud and use the official cybercrime portal.";
-  }
-  if (prompt.includes("report") || prompt.includes("complaint") || prompt.includes("1930")) {
-    return "Preserve screenshots, messages, transaction IDs, URLs, dates, and account alerts. For suspected financial fraud, call 1930 immediately and complete the report through the official cybercrime portal.";
-  }
-  if (prompt.includes("malware") || prompt.includes("virus") || prompt.includes("device")) {
-    return "Disconnect the affected device from the network, avoid unknown cleanup tools, preserve relevant evidence, and seek trusted technical help. Change important passwords from a clean device if needed.";
-  }
-  if (prompt.includes("link") || prompt.includes("website") || prompt.includes("phish")) {
-    return "Do not use the link in an unexpected message. Open the organisation's official app or type its known address yourself, then verify the request independently.";
-  }
-  if (prompt.includes("password") || prompt.includes("privacy") || prompt.includes("account")) {
-    return "Use a unique long password for each important account, enable multi-factor authentication, and review app permissions and public profile details regularly.";
-  }
-  return "Start with the pause: do not click, share, or pay while a request feels urgent. Tell me whether this involves a link, OTP, payment, account, malware, or reporting and I’ll point you to the safest next step.";
-}
-
-const initialAssistantMessage: AssistantMessage = { role: "assistant", text: "I’m the CyberSafe guidance assistant. Ask about a suspicious link, OTP, payment request, account, malware, or reporting step." };
+const initialAssistantMessage: AssistantMessage = { role: "assistant", text: "Hi — I’m CyberBuddy. Ask me about a suspicious link, payment request, account takeover, malware, common hacking methods, or how to report an incident. I’ll respond to the details you share and help you choose a safe next step." };
 
 function BrandLockup() {
   return (
@@ -53,8 +28,8 @@ function BrandLockup() {
         <img src="/manus-storage/cybersafe-shield-mark_9a1b6ca2.png" alt="" />
       </span>
       <span className="brand-copy">
-        <span>CYBERCRIME AWARENESS</span>
-        <span>AND REPORTING SYSTEM STUDY</span>
+        <span>CYBER CRIME AWARENESS</span>
+        <span>AND REPORTING SYSTEM</span>
       </span>
     </Link>
   );
@@ -155,7 +130,7 @@ function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand-block">
           <BrandLockup />
-          <p>A citizen-first study desk for recognizing scams, preserving evidence, and taking the next reporting step with confidence.</p>
+          <p>A citizen-first safety desk for recognizing scams, preserving evidence, and taking the next reporting step with confidence.</p>
         </div>
         <div className="footer-column">
           <span className="eyebrow">Report &amp; respond</span>
@@ -175,7 +150,7 @@ function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© 2026 Cybercrime Awareness and Reporting System Study. Educational civic interface.</span>
+        <span>© 2026 Cyber Crime Awareness and Reporting System. Educational civic interface.</span>
         <span>Not a substitute for emergency services or official law-enforcement intake.</span>
       </div>
     </footer>
@@ -193,6 +168,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantInput, setAssistantInput] = useState("");
   const [assistantMessages, setAssistantMessages] = useState<AssistantMessage[]>([initialAssistantMessage]);
+  const [assistantPending, setAssistantPending] = useState(false);
 
   useEffect(() => {
     const syncPhoneLayout = () => setPhoneLayout(detectPhoneLayout());
@@ -220,11 +196,29 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     return undefined;
   }, [assistantOpen]);
 
-  const sendAssistantMessage = (value: string) => {
+  const sendAssistantMessage = async (value: string) => {
     const cleanValue = value.trim();
-    if (!cleanValue) return;
-    setAssistantMessages((messages) => [...messages, { role: "user", text: cleanValue }, { role: "assistant", text: assistantReply(cleanValue) }]);
+    if (!cleanValue || assistantPending) return;
+    const userMessage: AssistantMessage = { role: "user", text: cleanValue };
+    const history = [...assistantMessages, userMessage];
+    setAssistantMessages(history);
     setAssistantInput("");
+    setAssistantPending(true);
+
+    try {
+      const response = await fetch("/api/cyberbuddy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history.map(({ role, text }) => ({ role, text })) }),
+      });
+      const payload = (await response.json()) as { reply?: unknown };
+      if (!response.ok || typeof payload.reply !== "string" || !payload.reply.trim()) throw new Error("CyberBuddy response unavailable");
+      setAssistantMessages((messages) => [...messages, { role: "assistant", text: payload.reply as string }]);
+    } catch {
+      setAssistantMessages((messages) => [...messages, { role: "assistant", text: "I’m having trouble reaching the conversational model right now. Start with the safe pause: do not click, pay, reply, or share a code. If money has moved, contact your bank and call 1930 promptly." }]);
+    } finally {
+      setAssistantPending(false);
+    }
   };
 
   return (
@@ -235,15 +229,16 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       {assistantOpen && (
         <aside id="cybersafe-assistant" className="assistant-panel" role="dialog" aria-modal="true" aria-label="CyberSafe guidance assistant">
           <div className="assistant-panel-head">
-            <div><span className="eyebrow"><span className="status-dot" /> AI guidance desk</span><strong>Ask before you act.</strong><small>Practical cyber-safety guidance, one step at a time.</small></div>
+            <div><span className="eyebrow"><span className="status-dot" /> AI safety assistant</span><strong>Ask before you act.</strong><small>Conversational guidance for the specific situation you describe.</small></div>
             <button className="assistant-close" type="button" aria-label="Close AI assistant" onClick={() => setAssistantOpen(false)}><X size={17} /></button>
           </div>
-          <div className="assistant-messages" aria-live="polite">
-            {assistantMessages.map((message, index) => <div className={`assistant-message ${message.role}`} key={`${message.role}-${index}`}><span>{message.role === "assistant" ? "AI" : "You"}</span><p>{message.text}</p></div>)}
+          <div className="assistant-messages" aria-live="polite" aria-busy={assistantPending}>
+            {assistantMessages.map((message, index) => <div className={`assistant-message ${message.role}`} key={`${message.role}-${index}`}><span>{message.role === "assistant" ? "AI" : "You"}</span>{message.role === "assistant" ? <div className="assistant-markdown"><Streamdown>{message.text}</Streamdown></div> : <p>{message.text}</p>}</div>)}
+            {assistantPending && <div className="assistant-message assistant"><span>AI</span><p className="assistant-thinking"><LoaderCircle size={14} /> Thinking through that…</p></div>}
           </div>
           <div className="assistant-compose">
-            <div className="assistant-prompts">{assistantPrompts.map((prompt) => <button key={prompt} type="button" onClick={() => sendAssistantMessage(prompt)}>{prompt}</button>)}</div>
-            <form onSubmit={(event) => { event.preventDefault(); sendAssistantMessage(assistantInput); }}><textarea aria-label="Ask the CyberSafe assistant" placeholder="Ask about a scam or safe reporting…" value={assistantInput} rows={2} onChange={(event) => setAssistantInput(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendAssistantMessage(assistantInput); } }} /><button type="submit" aria-label="Send question"><Send size={15} /></button></form>
+            <div className="assistant-prompts">{assistantPrompts.map((prompt) => <button key={prompt} type="button" disabled={assistantPending} onClick={() => void sendAssistantMessage(prompt)}>{prompt}</button>)}</div>
+            <form onSubmit={(event) => { event.preventDefault(); void sendAssistantMessage(assistantInput); }}><textarea aria-label="Ask the CyberSafe assistant" placeholder="Ask a specific safety question…" value={assistantInput} rows={2} disabled={assistantPending} onChange={(event) => setAssistantInput(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void sendAssistantMessage(assistantInput); } }} /><button type="submit" aria-label="Send question" disabled={assistantPending || !assistantInput.trim()}><Send size={15} /></button></form>
             <small className="assistant-disclaimer">Educational guidance only. For active financial fraud, call <a href="tel:1930">1930</a>.</small>
           </div>
         </aside>

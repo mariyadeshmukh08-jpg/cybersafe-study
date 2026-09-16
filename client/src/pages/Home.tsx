@@ -15,6 +15,15 @@ const awarenessTopics = [
   { number: "10", title: "Malware and Ransomware", body: "Malicious software steals data, disrupts devices, or demands payment to restore access.", watch: "Unexpected encryption, pop-ups, or software installs", icon: LockKeyhole },
 ];
 
+const hackingTypes = [
+  { title: "Phishing & social engineering", body: "Attackers manipulate people with convincing messages, fake support calls, or urgent requests for secrets." },
+  { title: "Brute-force attacks", body: "Automated guesses target weak or reused passwords until an account is compromised." },
+  { title: "Malware & ransomware", body: "Malicious software can spy, damage files, lock devices, or demand payment." },
+  { title: "Man-in-the-middle", body: "An attacker intercepts communication between two parties, especially on unsafe networks or fake websites." },
+  { title: "Denial-of-service", body: "A service is flooded with traffic so real users cannot reach it. Do not respond to ransom demands without expert advice." },
+  { title: "SQL injection & software flaws", body: "Attackers exploit weaknesses in apps or databases. Updates, secure development, and access controls reduce the risk." },
+];
+
 function SignalChart() {
   return (
     <div className="signal-chart" aria-label="Illustrative cyber safety signal monitor">
@@ -51,7 +60,7 @@ export default function Home() {
         <div className="container hero-grid">
           <div className="hero-copy reveal-up">
             <span className="eyebrow eyebrow-pill"><span className="status-dot" /> India’s cyber safety desk</span>
-            <h1>Cybercrime Awareness <span>and</span><br /> Reporting System <em>Study</em></h1>
+            <h1>Cyber Crime Awareness <span>and</span><br /> Reporting System</h1>
             <p className="hero-lede">Learn. Stay safe. Report cybercrime quickly. Clear guidance for everyday citizens, from recognising a scam to preparing a report.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#awareness">Learn about cybercrime <ArrowRight size={16} /></a>
@@ -96,6 +105,18 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="hacking-types-section section" id="hacking-types">
+        <div className="container">
+          <div className="section-intro split-intro">
+            <div><span className="eyebrow">Know the methods</span><h2>Types of hacking.<br /><span>Defend the weak point.</span></h2></div>
+            <div className="intro-copy"><p>Hacking is not one single technique. Different attacks target people, passwords, devices, networks, or software. Understanding the pattern makes suspicious behaviour easier to spot.</p><a className="text-link" href="#safety-toolkit">See practical protection steps <ArrowRight size={15} /></a></div>
+          </div>
+          <div className="hacking-types-grid">
+            {hackingTypes.map((type, index) => <article className="hacking-type-card" key={type.title}><span className="hacking-type-index">0{index + 1}</span><h3>{type.title}</h3><p>{type.body}</p><span className="hacking-type-note">Defensive focus: prevention &amp; early detection</span></article>)}
           </div>
         </div>
       </section>
@@ -166,7 +187,7 @@ export default function Home() {
       </section>
 
       <section className="updates-section section" id="updates">
-        <div className="container"><div className="section-intro updates-heading"><div><span className="eyebrow">Official updates</span><h2>Stay close to<br /><span>the signal.</span></h2></div><p>Use trusted sources for current advisories and official reporting guidance. This interface does not invent incident statistics or replace public authorities.</p></div><div className="updates-grid"><article><span className="update-date">READ / I4C</span><h3>Android accessibility abuse advisory</h3><p>Review official guidance when a device requests unusual accessibility permissions or control.</p><a href="https://i4c.mha.gov.in/" target="_blank" rel="noreferrer">Read advisory <ExternalLink size={14} /></a></article><article><span className="update-date">READ / MHA</span><h3>Cybercrime reporting basics</h3><p>Understand what to preserve, when to call 1930, and how the national portal fits into the response.</p><a href="https://cybercrime.gov.in/" target="_blank" rel="noreferrer">Read update <ExternalLink size={14} /></a></article><article><span className="update-date">PRACTICE / STUDY</span><h3>Build a safer digital reflex</h3><p>Take the quiz to test the habits that reduce pressure, protect accounts, and support timely reporting.</p><Link href="/quiz">Take the Quiz <ArrowRight size={14} /></Link></article></div></div>
+        <div className="container"><div className="section-intro updates-heading"><div><span className="eyebrow">Official updates</span><h2>Stay close to<br /><span>the signal.</span></h2></div><p>Use trusted sources for current advisories and official reporting guidance. This interface does not invent incident statistics or replace public authorities.</p></div><div className="updates-grid"><article><span className="update-date">READ / I4C</span><h3>Android accessibility abuse advisory</h3><p>Review official guidance when a device requests unusual accessibility permissions or control.</p><a href="https://i4c.mha.gov.in/" target="_blank" rel="noreferrer">Read advisory <ExternalLink size={14} /></a></article><article><span className="update-date">READ / MHA</span><h3>Cybercrime reporting basics</h3><p>Understand what to preserve, when to call 1930, and how the national portal fits into the response.</p><a href="https://cybercrime.gov.in/" target="_blank" rel="noreferrer">Read update <ExternalLink size={14} /></a></article><article><span className="update-date">PRACTICE / QUIZ</span><h3>Build a safer digital reflex</h3><p>Take the quiz to test the habits that reduce pressure, protect accounts, and support timely reporting.</p><Link href="/quiz">Take the Quiz <ArrowRight size={14} /></Link></article></div></div>
       </section>
     </>
   );

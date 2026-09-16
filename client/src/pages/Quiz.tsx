@@ -144,12 +144,12 @@ export default function Quiz() {
         <div className="quiz-hero-glow" aria-hidden="true" />
         <div className="container quiz-hero-inner">
           <div className="quiz-hero-copy">
-            <Link className="back-link" href="/"><ArrowLeft size={15} /> Back to the study desk</Link>
+            <Link className="back-link" href="/"><ArrowLeft size={15} /> Back to the safety desk</Link>
             <span className="eyebrow eyebrow-pill"><span className="status-dot" /> Cyber safety knowledge check</span>
             <h1>Build a safer<br /><span>digital reflex.</span></h1>
             <p>Ten practical questions. Four choices each. Learn what to notice before pressure turns into a costly click, share, or payment.</p>
           </div>
-          <div className="quiz-hero-aside"><span className="aside-index">10</span><span className="eyebrow">Short study / practical signal</span><strong>One question at a time.</strong><small>Immediate explanations keep the learning close to the decision.</small></div>
+          <div className="quiz-hero-aside"><span className="aside-index">10</span><span className="eyebrow">Quiz / practical signal</span><strong>One question at a time.</strong><small>Immediate explanations keep the learning close to the decision.</small></div>
         </div>
       </section>
 
@@ -164,7 +164,7 @@ export default function Quiz() {
                   <p>{answered ? "Answer checked. Read the explanation, then continue." : "Choose the safest response for this situation."}</p>
                 </div>
                 <div className="topic-index">
-                  <span className="eyebrow">Study map</span>
+                  <span className="eyebrow">Quiz map</span>
                   {questions.map((item, index) => <button className={index === current ? "topic-index-item active" : answers[index] !== null ? "topic-index-item answered" : "topic-index-item"} key={item.topic} type="button" onClick={() => answers[index] !== null && goToQuestion(index)} disabled={answers[index] === null && index !== current}><span>{String(index + 1).padStart(2, "0")}</span>{item.topic}<i aria-hidden="true">{answers[index] !== null ? <Check size={12} /> : index === current ? <span className="index-dot" /> : null}</i></button>)}
                 </div>
                 <div className="quiz-sidebar-tip"><ShieldCheck size={16} /><span>Remember: urgency is a signal to pause, not a reason to hurry.</span></div>
@@ -187,7 +187,7 @@ export default function Quiz() {
             </div>
           ) : (
             <div className="results-shell">
-              <div className="results-header"><div><span className="eyebrow">Study complete / 10 questions</span><h2>Your safety signal is <span>{percentage}%.</span></h2><p>{result.body}</p></div><div className={`result-badge ${result.tone}`}><ShieldCheck size={22} /><strong>{result.title}</strong></div></div>
+              <div className="results-header"><div><span className="eyebrow">Quiz complete / 10 questions</span><h2>Your safety signal is <span>{percentage}%.</span></h2><p>{result.body}</p></div><div className={`result-badge ${result.tone}`}><ShieldCheck size={22} /><strong>{result.title}</strong></div></div>
               <div className="results-grid">
                 <div className="result-score-card"><span className="eyebrow">Final score</span><strong>{percentage}<small>%</small></strong><div className="result-meter"><span style={{ width: `${percentage}%` }} /></div><p>{percentage === 100 ? "Every answer matched the safest response." : "Your score is based on the safest answer selected for each scenario."}</p></div>
                 <div className="result-stat-card"><span className="eyebrow">Correct answers</span><strong>{correctCount}<small> / {questions.length}</small></strong><CheckCircle2 size={18} /></div>

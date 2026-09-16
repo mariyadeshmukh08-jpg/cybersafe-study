@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { askCyberBuddy, normalizeMessages } from "./server/cyberbuddy";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -203,7 +204,46 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+function vitePluginCyberBuddy(): Plugin {
+  return {
+    name: "cyberbuddy-api",
+    configureServer(server) {
+      server.middlewares.use("/api/cyberbuddy", (req, res, next) => {
+        if (req.method !== "POST") return next();
+
+        let body = "";
+        req.on("data", (chunk) => {
+          body += chunk.toString();
+          if (body.length > 32 * 1024) req.destroy();
+        });
+        req.on("end", async () => {
+          try {
+            const payload = JSON.parse(body) as { messages?: unknown };
+            const messages = normalizeMessages(payload.messages);
+            if (messages.length === 0 || messages.at(-1)?.role !== "user") {
+              res.statusCode = 400;
+              res.setHeader("Content-Type", "application/json");
+              res.end(JSON.stringify({ error: "Please send a user question." }));
+              return;
+            }
+
+            const result = await askCyberBuddy(messages);
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify(result));
+          } catch (error) {
+            console.error("[CyberBuddy] Development request failed:", error);
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ error: "CyberBuddy is temporarily unavailable." }));
+          }
+        });
+      });
+    },
+  };
+}
+
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy(), vitePluginCyberBuddy()];
 
 export default defineConfig({
   plugins,

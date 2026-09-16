@@ -16,7 +16,7 @@ export default function InfoPage({ eyebrow, title, body, actionLabel, actionHref
     <section className="utility-page section">
       <div className="utility-grid container">
         <div className="utility-copy">
-          <Link className="back-link" href="/"><ArrowLeft size={15} /> Back to the study desk</Link>
+          <Link className="back-link" href="/"><ArrowLeft size={15} /> Back to the safety desk</Link>
           <span className="eyebrow eyebrow-pill"><span className="status-dot" /> {eyebrow}</span>
           <h1>{title}</h1>
           <p>{body}</p>
